@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Keyboard Tester — Test Every Key, Rollover &amp; Ghosting Online | S3eidat Tools</title>
+<meta name="description" content="Free online keyboard tester: a full ANSI or ISO keyboard lights up as you press keys, shows key, code and keyCode, tracks which keys you've tested and measures key rollover. Nothing leaves your browser.">
+<meta property="og:title" content="Keyboard Tester — test every key on your keyboard">
+<meta property="og:description" content="Visual ANSI/ISO keyboard, key codes, tested-keys progress and rollover test. Runs in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="keyboard-tester">
+<main class="s3-main kt-main">
+  <section class="s3-hero">
+    <h1>Keyboard Tester</h1>
+    <p>Press any key: it lights up on the keyboard below. Check that every key works, see its codes, and find out how many keys your keyboard registers at once.</p>
+  </section>
+
+  <section class="card">
+    <div class="row between">
+      <div class="row">
+        <div class="seg" id="layout" role="group" aria-label="Layout">
+          <button aria-pressed="true" data-v="ansi">ANSI (US)</button>
+          <button aria-pressed="false" data-v="iso">ISO (UK/EU)</button>
+        </div>
+        <div class="seg" id="size" role="group" aria-label="Size">
+          <button aria-pressed="true" data-v="full">Full</button>
+          <button aria-pressed="false" data-v="tkl">TKL</button>
+          <button aria-pressed="false" data-v="main">Compact</button>
+        </div>
+      </div>
+      <button class="btn" id="reset"><svg class="i"><use href="#i-refresh"/></svg>Reset</button>
+    </div>
+    <div class="kt-wrap mt" id="wrap">
+      <div class="kt-kb" id="kb" aria-label="Keyboard diagram" role="img"></div>
+    </div>
+    <div class="kt-progress mt" aria-hidden="true"><i id="bar"></i></div>
+    <div class="row between mt">
+      <span class="faint" id="hint">Click here first if keys don't register, then start typing.</span>
+      <span class="faint"><span class="kt-legend kt-l-down"></span>held <span class="kt-legend kt-l-tested"></span>tested</span>
+    </div>
+  </section>
+
+  <div class="grid-3 mt kt-grid">
+    <section class="card">
+      <h2>Last key</h2>
+      <div class="kt-last" id="last"><span class="kt-lastkey" id="lkey">—</span></div>
+      <table class="tbl kt-info">
+        <tbody>
+          <tr><th scope="row">event.key</th><td class="mono" id="ikey">—</td></tr>
+          <tr><th scope="row">event.code</th><td class="mono" id="icode">—</td></tr>
+          <tr><th scope="row">keyCode</th><td class="mono" id="ikc">—</td></tr>
+          <tr><th scope="row">location</th><td id="iloc">—</td></tr>
+          <tr><th scope="row">modifiers</th><td id="imod">—</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Progress &amp; rollover</h2>
+      <div class="stats">
+        <div class="stat"><b id="sTested">0</b><span id="sTotal">of 104 keys tested</span></div>
+        <div class="stat"><b id="sHeld">0</b><span>keys held now</span></div>
+        <div class="stat"><b id="sMax">0</b><span>most at once (rollover)</span></div>
+        <div class="stat"><b id="sCount">0</b><span>key presses</span></div>
+      </div>
+      <p class="faint kt-note">Rollover test: press and hold as many keys as you can. If a key you're holding doesn't light up, your keyboard
+        is <b>ghosting / blocking</b> on that combination. Many office keyboards stop at 2–6 keys; gaming keyboards often handle 10+ (NKRO).</p>
+    </section>
+
+    <section class="card">
+      <div class="row between"><h2>Event log</h2><button class="btn ghost small" id="clearlog">Clear</button></div>
+      <ol class="kt-log" id="log" reversed></ol>
+      <p class="faint kt-note" id="extra"></p>
+    </section>
+  </div>
+
+  <p class="faint kt-foot">The page captures keys so shortcuts like F5 or Ctrl+P don't fire while testing. Your system still keeps a few
+    (Windows key, Alt+Tab, Ctrl+W, Fn). Tab is captured the first time, then moves focus as usual. Nothing you type is stored or sent.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
